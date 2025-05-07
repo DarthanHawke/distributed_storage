@@ -29,7 +29,7 @@ func LoadConfig() (config Configuration, err error) {
 
 	data, err = os.ReadFile(configPath)
 	if err != nil {
-		log.Fatalf("Read err")
+		log.Fatalf("Read err: %s", err.Error())
 	}
 	err = yaml.Unmarshal(data, &config)
 	return

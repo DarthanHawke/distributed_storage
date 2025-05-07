@@ -1,9 +1,15 @@
+FROM golang:1.23 AS build
+
+COPY . /src
+WORKDIR /src
+RUN CGO_ENABLED=0 GOOS=linux go build -o kvs /src/cmd/distributed_storage
+
 FROM scratch
-# Скопировать имеющийся двоичный файл с хоста.
-COPY kvs .
-# Скопировать файлы PEM.
-COPY *.env .
-# Сообщить фреймворку Docker, что служба будет использовать порт 8080.
+
+COPY --from=build /src/kvs .
+COPY --from=build /src/*.env .
+COPY --from=build /src/config/*.yaml ./config/
+
 EXPOSE 8080
-# Команда, которая должна быть выполнена при запуске контейнера.
+
 CMD ["/kvs"]

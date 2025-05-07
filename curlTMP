@@ -1,9 +1,0 @@
-curl -X PUT -d "Hello, key-value store!" --insecure -v https://localhost:8080/v1/key-a
-
-curl -X GET --insecure -v http://localhost:8080/v1/key-a
-
-curl -X PUT -d "Hello, again, key-value store!" --insecure -v http://localhost:8080/v1/key-a
-
-curl -X DELETE --insecure -v http://localhost:8080/v1/key-a
-
-CGO_ENABLED=0 GOOS=linux go build -a -o kvs main distributed_storage/cmd/distributed_storage/main.go
